@@ -1,18 +1,16 @@
 package org.example;
 
-import org.example.entity.Host;
-import org.example.entity.Match;
-import org.example.entity.Player;
-
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 
 public class BetProcessor {
-    private static final String PLAYER_DATA = "src/main/resources/test_player_data.txt";
-    private static final String MATCH_DATA = "src/main/resources/test_match_data.txt";
+    private static final String PLAYER_DATA = "src/main/resources/player_data.txt";
+    private static final String MATCH_DATA = "src/main/resources/match_data.txt";
     private static final String RESULT = "result.txt";
+
+
 
     HashMap<String, Player> players = new HashMap<>();
     HashMap<String, Match> matches = new HashMap<>();
@@ -24,6 +22,7 @@ public class BetProcessor {
         writeResults();
 
     }
+
     // TODO find out why printing 2 empty lines after illegitimate operation
     private void writeResults() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(RESULT))) {
@@ -78,7 +77,6 @@ public class BetProcessor {
     private void processPlayerData() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(PLAYER_DATA));
         String playerAction;
-
         while ((playerAction = reader.readLine()) != null) {
             String[] line = playerAction.split(",");
             String playerId = line[0];
@@ -92,8 +90,8 @@ public class BetProcessor {
                     betSide = line[4];
                     Match match = matches.get(matchId);
                     if (players.get(playerId).getIllegalOperation() == null) {
-                        long hostBalanceChange = players.get(playerId).makeBet(match, transactionValue, betSide);
-                        changeHostBalance(hostBalanceChange);
+                        players.get(playerId).makeBet(match, transactionValue, betSide);
+
                     }
                 }
 
@@ -111,7 +109,15 @@ public class BetProcessor {
                     }
                 }
             }
+
         }
+        for (Player player : players.values()) {
+            if (player.getIllegalOperation() == null) {
+                long amountWon = player.getAmountWon();
+                changeHostBalance(-amountWon);
+            }
+        }
+
     }
 
     private void changeHostBalance(long hostBalanceChange) {

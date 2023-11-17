@@ -1,6 +1,0 @@
-Match1,1.45,0.75,A
-Match2,4.34,0.23,B
-Match3,0.54,1.85,DRAW
-Match4,0.67,1.52,DRAW
-Match5,1.23,0.79,B
-Match6,3.23,0.31,B

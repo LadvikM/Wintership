@@ -1,4 +1,0 @@
-Player1,DEPOSIT,,4000,
-Player1,BET,Match1,500,A
-Player1,BET,Match2,5000,A
-Player1,BET,Match3,500,A
