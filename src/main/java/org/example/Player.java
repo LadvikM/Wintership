@@ -17,7 +17,6 @@ public class Player {
     private long amountWon;
 
     public void deposit(int depositAmount) {
-
         balance += depositAmount;
     }
 
@@ -47,7 +46,6 @@ public class Player {
                 amountWon += (long) amountChange;
                 balance += amountWon;
             } else if (betSide.equals("B")) {
-                System.out.println("Balance before: " + balance);
                 double amountChange = transactionValue * rateB;
                 amountWon += (long) amountChange;
                 balance += amountWon;
@@ -57,7 +55,5 @@ public class Player {
             balance -= transactionValue;
             amountWon -= transactionValue;
         }
-
-
     }
 }
